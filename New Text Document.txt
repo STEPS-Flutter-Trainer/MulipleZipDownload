@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script type="text/javascript">
+function Checkuserid()
+{
+	
+	var data=document.getElementById("userid").value; 
+	if(data=="")
+	{
+		document.getElementById("userid1").innerHTML="*Required";
+		return false;
+	}
+	else if(((data.length)>=5)&&((data.length)<=12))
+	{
+		document.getElementById("userid1").innerHTML="";
+		return true;
+	}
+	else
+	{
+		document.getElementById("userid1").innerHTML="Not Valid";
+		return false;
+	}
+}
+function Checkpassword()
+{
+	var data=document.getElementById("password").value; 
+	if(data=="")
+	{
+		document.getElementById("password1").innerHTML="*Required";
+		return false;
+	}
+	else if(((data.length)>=7)&&((data.length)<=12))
+	{
+		document.getElementById("password1").innerHTML="";
+		return true;
+	}
+	else
+	{
+		document.getElementById("password1").innerHTML="*Not Valid";
+		return false;
+	}
+}
+function Checkname()
+{
+	var data=document.getElementById("name").value;
+	var alphabets=/^[A-Za-z\s]+$/;
+	var elements=/^[\D\d]+$/;
+	if(data=="")
+	{
+		document.getElementById("name1").innerHTML="*Required";
+		return false;
+	}
+	else  if(data.match(alphabets)) 
+	{
+		document.getElementById("name1").innerHTML="";
+		return true;
+	}
+	else 
+	{
+		document.getElementById("name1").innerHTML="*Not Valid";
+		return false;
+	}
+}
+function Checkcountry()
+{
+	var data=document.getElementById("country").value;
+	 if(data=="")
+	{
+		document.getElementById("country1").innerHTML="*Required.Must Select a country";
+		return false;
+	}
+	else
+	{
+		document.getElementById("country1").innerHTML="";
+		return true;
+	} 
+}
+function Checkzipcode()
+{
+	var data=document.getElementById("zipcode").value;
+	var numbers=/[\d]+$/;
+	if(data=="")
+	{
+		document.getElementById("zipcode1").innerHTML="*Required";
+		return false;
+	}
+	else  if(data.match(numbers)) 
+	{
+		document.getElementById("zipcode1").innerHTML="";
+		return true;
+	}
+	else
+	{
+		document.getElementById("zipcode1").innerHTML="*Not Valid";
+		return false;
+	}
+}
+function Checkemail()
+{
+	var data=document.getElementById("email").value;
+	var alphabets=/^[A-Za-z0-9#*]+@[a-zA-Z0-9]+\.[0-9a-zA-Z]{3,8}$/;
+	if(data=="")
+	{
+		document.getElementById("email1").innerHTML="*Required.Must be a valid one";
+		return false;
+	}
+	else  if(data.match(alphabets)) 
+	{
+		document.getElementById("email1").innerHTML="";
+		return true;
+	}
+	else
+	{
+		document.getElementById("email1").innerHTML="*Not Valid";
+		return false;
+	}
+}
+function Checkgender()
+{
+	var data=document.getElementsByName("gender");
+		if((data[0].checked==true)||(data[1].checked==true))
+		{
+			return true;
+		}
+		else
+		{			
+			document.getElementById("gender1").innerHTML="* Please select a gender";
+			return false;
+		}
+}
+function Checklanguage()
+{
+	var data=document.getElementsByName("Language");
+	var q=0;
+		if((data[q].checked==true)||(data[q+1].checked==true))
+		{
+			return true;
+		}
+		else
+		{
+			document.getElementById("language1").innerHTML="* Please select a language";
+			return false;
+		}
+			
+} 
+function checkuname()
+{
+	var d=document.getElementById("userid").value;
+	 var xhr = new XMLHttpRequest();
+	    xhr.onreadystatechange = function() {
+	        if (xhr.readyState == 4) {
+	            var data = xhr.responseText;
+	          // alert(data)
+				document.getElementById("res").innerHTML=data;
+				if(document.getElementById("uex").value=="yes")
+				{
+					alert("yes");
+					document.getElementById("userid1").innerHTML="UserId already exist"
+					return false;
+				}
+				else
+				{
+					alert("no");
+					document.getElementById("userid1").innerHTML=""
+					return true;
+				}
+	        }
+	    }
+	    xhr.open('GET', "samleajax?id="+d, true);
+	    xhr.send(null);
+		}
+
+	function checkall()
+{
+/* 	 alert(Checkuserid()+" "+Checkpassword()+" "+Checkname()+" "+Checkcountry()+" "+Checkzipcode()+" "+Checkemail()+" "+Checkgender()+" "+Checklanguage()+" "+checkuname())
+ */ alert(checkuname())
+ if(Checkuserid()&&Checkpassword()&&Checkname()&&Checkcountry()&&Checkzipcode()&&Checkemail()&&Checkgender()&&Checklanguage()&&checkuname())
+	{
+		return true;
+	}
+	else
+	{alert("nooooo")
+		return	false;
+	} 
+}
+
+
+</script>
+<script>	
+
+   
+</script>
+<style type="text/css">
+span
+{
+color:red;
+}
+#userid
+{margin-left: 66px;
+}
+#password
+{margin-left: 40px;
+}
+#name
+{margin-left: 78px;
+}
+#address
+{margin-left: 53px;
+}
+#country
+{margin-left: 50px;
+}
+#zipcode
+{margin-left: 52px;
+}
+#email
+{margin-left: 74px;
+}
+#sex
+{margin-left:  64px;
+}
+#language
+{margin-left: 40px;
+}
+#about
+{margin-left: 70px;
+}
+#submit
+{
+margin-left:493px;
+background-color: green;
+}
+</style>
+</head>
+<body onload="checkuname()"  >
+
+<div id="res"></div>
+
+<FORM action="Registration" method="post" style="color: black" onsubmit="checkall()" >
+<input type="hidden" value="reg" name="type">
+<h1 style="color:green"><b>REGISTRATION FORM</b></h1>
+<br>
+<a href="Display_form" style="margin-left: 952px;color:purple;">Display_form</a>
+<br>
+<label>USER ID:</label>
+<input type="text" id="userid" onblur="Checkuserid()" name="userid"	><span id="userid1"></span>
+<br><br>
+<label>PASSWORD:</label>
+<input type="password" id="password"onblur="Checkpassword()" name="password"><span id="password1"></span>
+<br><br>
+<label>NAME:</label>
+<input type="text" id="name" onblur="Checkname()" name="name"><span id="name1"></span>
+<br><br>
+<label>ADDRESS:</label>
+<input type="text" id="address" onblur="CheckAddress()" name="address"><span >*optional</span>
+<br><br>
+<label>COUNTRY</label>
+<select name="Country" id="country" onchange="Checkcountry()">
+<option value="">select</option>
+<option value="India">India</option>
+<option value="Nepal">Nepal</option>
+<option value="China">China</option>
+<option value="Bangladesh">Bangladesh</option>
+<option value="Bhutan">Bhutan</option>
+<option value="Myanmmar">Myanmmar</option>
+<option value="Pakisthan">Pakisthan</option>
+<option value="Afghanisthan">Afghanisthan</option>
+<option value="Srilanka">Srilanka</option>
+</select><span id="country1"></span>
+<br><br>
+<label>ZIP CODE:</label>
+<input type="text" id="zipcode" name="zipcode" onblur="Checkzipcode()"><span id="zipcode1"></span>
+<br><br>
+<label>EMAIL:</label>
+<input type="email" name="email" id="email"onblur="Checkemail()"><span id="email1"></span>
+<br><br>
+<label>GENDER:</label>
+<input type="radio" id="sex" name="gender" value="m"onblur="Checkgender()">MALE
+<input type="radio" id="sex" name="gender" value="f" onblur="Checkgender()">FEMALE<span id="gender1"></span>
+<br><br>
+<label>LANGUAGE:</label>
+<input type="radio" id="language" name="Language" value="english" onblur="Checklanguage()">ENGLISH
+<input type="radio" id="language" name="Language" value="others" onblur="Checklanguage()">NON ENGLISH<span id="language1"></span>
+<br><br>
+<label>ABOUT</label>
+<input type="text"id="about" name="about" ><span id="about1">*optional</span>
+<br><br><br>
+<Button type="submit" id="submit">SUBMIT</Button>
+</FORM>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
